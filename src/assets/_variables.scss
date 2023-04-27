@@ -1,7 +1,20 @@
 // color palette
 
-$text: #355070;
-$chinesViolet: #6d597a;
-$accent: #b56576;
+// $accent: #b56576;
 $main-bg: #e56b6f;
 $secondary-bg: #eaac8b;
+$accent: #6d597a;
+
+$bg: #355070;
+
+$text: hsl(0, 0%, 80%);
+$text-transparent: transparentize($text, 0.4);
+
+$font-changa: "Changa", sans-serif;
+
+$base-border: 3px solid $text;
+$base-border-transparent: 3px solid transparentize($text, 0.4);
+
+$alt-border: 3px solid darken($accent, 10%);
+
+$base-box-shadow: 2px 5px 10px hsl(0, 0%, 0%, 0.3);

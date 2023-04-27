@@ -66,10 +66,10 @@ html {
 body {
 	min-height: 100vh;
 	color: $text;
-	background: $main-bg;
+	background: $bg;
 	transition: color 0.5s, background-color 0.5s;
 	line-height: 1.6;
-	font-family: Roboto, sans-serif;
+	font-family: $font-changa, Roboto;
 	font-size: 15px;
 	letter-spacing: 0.5px;
 	text-rendering: optimizeLegibility;
