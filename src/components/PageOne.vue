@@ -5,7 +5,12 @@
 	import Progress from "./Progress.vue";
 	import Buttons from "./Buttons.vue";
 	import { useVuelidate } from "@vuelidate/core";
-	import { required, minLength, maxLength } from "@vuelidate/validators";
+	import {
+		helpers,
+		required,
+		minLength,
+		maxLength,
+	} from "@vuelidate/validators";
 	import { ref } from "vue";
 
 	const state = ref({
@@ -31,15 +36,12 @@
 			maxLength: maxLength(15),
 		},
 	};
+
 	const v = useVuelidate(rules, state);
 
-	const firstName = ref("");
-	const firstNameError = ref("");
-
-	const submitForm = async () => {
-		const isFormCorrect = await v.value.$validate();
-		firstNameError.value = v.value.firstName.$errors[0].$message;
-		console.log(v.value.firstName);
+	const submitForm = () => {
+		const isFormCorrect = v.value.$validate();
+		console.log(state.value.secondName);
 		if (!isFormCorrect) return;
 	};
 </script>
@@ -51,14 +53,18 @@
 				<template v-slot:legend> Page One </template>
 				<template v-slot:inputs>
 					<Input
-						v-model:first-name="firstName"
-						:first-name-error="firstNameError"
+						v-model:first-name="state.firstName"
+						@emit-blur="v.firstName.$touch"
 					>
 						<template v-slot:field-name>First Name</template>
-						<template v-slot:error>{{ firstNameError }}</template>
+						<template v-slot:error>{{
+							v.firstName.$error
+								? v.firstName.$errors[0].$message
+								: ""
+						}}</template>
 					</Input>
 
-					<Input>
+					<Input v-model:second-name="state.secondName">
 						<template v-slot:field-name>Second Name</template>
 					</Input>
 					<Input>

@@ -3,12 +3,23 @@
 
 	const props = defineProps({
 		firstName: String,
-		firstNameError: String,
 	});
 
-	const emit = defineEmits(["update:firstName"]);
+	const emit = defineEmits([
+		"update:firstName",
+		"update:secondName",
+		"emitBlur",
+	]);
 	const updateFirstName = (e) => {
 		emit("update:firstName", e.target.value);
+	};
+	const updateSecondName = (e) => {
+		console.log(e.target.value);
+		emit("update:secondName", e.target.value);
+	};
+
+	const emitBlur = () => {
+		emit("emitBlur");
 	};
 
 	// VUELIDATE
@@ -22,8 +33,9 @@
 		<input
 			class="input"
 			type="text"
-			:value="firstName"
-			@input="updateFirstName"
+			:value="[firstName, secondName]"
+			@input.trim="firstName"
+			@blur="emitBlur"
 		/>
 		<p class="error">
 			<slot name="error"></slot>
